@@ -24,7 +24,12 @@ const registration = async (req, res) => {
       phone,
       password,
     });
-    res.status(200).send(UserData);
+
+    res.status(200).send({
+      msg: "successfully Register",
+      token: await UserData.generateToken(),
+      userId: UserData._id.toString(),
+    });
   } catch (error) {
     res.status(400).send("page not found registration!!");
   }
