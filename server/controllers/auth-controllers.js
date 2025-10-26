@@ -1,4 +1,5 @@
 const User = require("../models/user-Schema");
+const bcrypt = require("bcrypt");
 
 //home logic.
 const home = async (req, res) => {
@@ -35,4 +36,28 @@ const registration = async (req, res) => {
   }
 };
 
-module.exports = { home, registration };
+// login logic
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const userExit = await User.findOne({ email });
+    if (!userExit) {
+      return res.status(400).send("Invalid email");
+    }
+
+    const user = await userExit.comparedPassword(password);
+    if (user) {
+      res.status(200).send({
+        msg: "successfully login",
+        token: await userExit.generateToken(),
+        userId: userExit._id.toString(),
+      });
+    } else {
+      res.status(400).send("Invalid password");
+    }
+  } catch (error) {
+    console.log(`login page not found`, error.message);
+  }
+};
+
+module.exports = { home, registration, login };
