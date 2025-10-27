@@ -1,6 +1,7 @@
 const errorMiddleWare = (err, req, res, next) => {
-  const status = err.status | 500;
-  const message = err.message | "Backened error";
-  const extraDetails = err.extraDetails | "Error from backend";
-  return res.status(status).json({ message, extraDetails });
+  const status = err.status || 500;
+  const firstError = err.firstError || "Backend error";
+  return res.status(status).json({ firstError });
 };
+
+module.exports = errorMiddleWare;

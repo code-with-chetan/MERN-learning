@@ -3,12 +3,15 @@ const express = require("express");
 const app = express();
 const router = require("./router/auth-route");
 const connectionDB = require("./utils/db");
+const errorMiddleWare = require("./middlewares/error-middleware");
 
 app.use(express.json());
 
 app.use("/api/auth", router);
 
 const PORT = 4000;
+
+app.use(errorMiddleWare);
 
 connectionDB().then(() => {
   app.listen(PORT, () => {
