@@ -1,9 +1,74 @@
+/* 🌐 Global Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* Set base font size to make rem easy (1rem = 10px) */
 html {
   font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+/* Default body setup */
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.6rem;
+  background: linear-gradient(120deg, #121212, #1e1e1e, #2c2c2c);
+  color: #e0e0e0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove default list and link styles */
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Images and media */
+img,
+picture,
+video,
+canvas {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  outline: none;
+  border: none;
+}
+
+/* Buttons cursor and transition */
+button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Layout helper */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
 }
