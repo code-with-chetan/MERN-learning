@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./loginRegister.css";
 
+const URL = "http://localhost:4000/api/auth/registration";
+
 export const Register = () => {
   const [user, setUser] = useState({
     username: "",
@@ -25,17 +27,14 @@ export const Register = () => {
     e.preventDefault();
     console.log(user);
     try {
-      const response = await fetch(
-        `http://localhost:4000/api/auth/registration`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+      const response = await fetch(URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-          body: JSON.stringify(user),
-        }
-      );
+        body: JSON.stringify(user),
+      });
 
       if (response.ok) {
         setUser({ username: "", email: "", phone: "", password: "" });
