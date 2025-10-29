@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./loginRegister.css";
 
 export const Register = () => {
   const [user, setUser] = useState({
