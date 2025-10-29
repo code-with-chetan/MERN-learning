@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./loginRegister.css";
 
 export const Register = () => {
@@ -9,6 +10,8 @@ export const Register = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChangeInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -18,9 +21,29 @@ export const Register = () => {
     });
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(user);
+    try {
+      const response = await fetch(
+        `http://localhost:4000/api/auth/registration`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(user),
+        }
+      );
+
+      if (response.ok) {
+        setUser({ username: "", email: "", phone: "", password: "" });
+        navigate("/login");
+      }
+    } catch (error) {
+      console.log("registration error:", error.message);
+    }
   };
 
   return (
