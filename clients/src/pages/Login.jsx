@@ -12,7 +12,7 @@ export const Login = () => {
   });
 
   const navigate = useNavigate();
-  const setTokenLS = useAuth();
+  const { setTokenLS } = useAuth();
 
   const handleChangeInput = (e) => {
     const name = e.target.name;
