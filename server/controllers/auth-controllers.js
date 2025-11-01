@@ -63,7 +63,8 @@ const login = async (req, res) => {
 // user logic
 const user = async (req, res) => {
   try {
-    res.status(200).json("hi user logic");
+    const UserData = await req.user;
+    res.status(200).json({ UserData });
   } catch (error) {
     console.log(`error from the user logic ${error}`);
   }
