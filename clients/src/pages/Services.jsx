@@ -1,3 +1,11 @@
-export const Services = () => {
-  return <h1>Services page</h1>;
+import "../index.css";
+
+export const Service = () => {
+  return (
+    <section className="section-services">
+      <div className="container">
+        <h1 className="main-heading">Services</h1>
+      </div>
+    </section>
+  );
 };
