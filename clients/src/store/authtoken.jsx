@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState();
+  const [services, setServices] = useState();
   let isLoggedIn = !!token;
 
   const setTokenLS = (serverToken) => {
@@ -16,6 +17,7 @@ export const AuthProvider = ({ children }) => {
     return localStorage.removeItem("token");
   };
 
+  // jwt authentication getting user data from the backened.
   const userDataBK = async () => {
     try {
       const response = await fetch(`http://localhost:4000/api/auth/user`, {
@@ -35,15 +37,33 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // jwt authentication getting user data from the backened.
+  // getting services data from the database
+  const servicesData = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/data/services`, {
+        method: "GET",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(`services data`, data.msg);
+        setServices(data.msg);
+      }
+    } catch (error) {
+      console.log(`error comes in services data fetch:`, error.message);
+    }
+  };
+
   useEffect(() => {
     if (token) {
       userDataBK();
+      servicesData();
     }
   }, [token]);
 
   return (
-    <AuthContext.Provider value={{ setTokenLS, LogOutUser, isLoggedIn, user }}>
+    <AuthContext.Provider
+      value={{ setTokenLS, LogOutUser, isLoggedIn, user, services }}
+    >
       {children}
     </AuthContext.Provider>
   );
