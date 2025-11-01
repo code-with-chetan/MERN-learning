@@ -37,8 +37,10 @@ export const AuthProvider = ({ children }) => {
 
   // jwt authentication getting user data from the backened.
   useEffect(() => {
-    userDataBK();
-  }, []);
+    if (token) {
+      userDataBK();
+    }
+  }, [token]);
 
   return (
     <AuthContext.Provider value={{ setTokenLS, LogOutUser, isLoggedIn, user }}>
