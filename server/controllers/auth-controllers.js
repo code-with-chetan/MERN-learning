@@ -60,4 +60,13 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { home, registration, login };
+// user logic
+const user = async (req, res) => {
+  try {
+    res.status(200).json("hi user logic");
+  } catch (error) {
+    console.log(`error from the user logic ${error}`);
+  }
+};
+
+module.exports = { home, registration, login, user };
